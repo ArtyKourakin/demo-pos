@@ -1,0 +1,122 @@
+@import 'tailwindcss';
+
+/* System fonts only: nothing is ever downloaded. */
+@theme {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  --color-brand-50: #fef2f2;
+  --color-brand-100: #fde3e3;
+  --color-brand-500: #e0393e;
+  --color-brand-600: #c62828;
+  --color-brand-700: #a51f1f;
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  body {
+    @apply bg-slate-100 text-slate-900 antialiased;
+    font-size: 16px;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  input,
+  textarea,
+  .selectable {
+    -webkit-user-select: text;
+    user-select: text;
+  }
+  button:not(:disabled),
+  [role='button']:not([aria-disabled='true']) {
+    cursor: pointer;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-sky-500);
+    outline-offset: 2px;
+  }
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-xl px-4 text-base font-semibold transition-colors select-none disabled:cursor-not-allowed disabled:opacity-45;
+  }
+  .btn-sm {
+    @apply min-h-9 rounded-lg px-3 text-sm;
+  }
+  .btn-lg {
+    @apply min-h-14 rounded-2xl px-6 text-lg;
+  }
+  .btn-primary {
+    @apply bg-emerald-600 text-white hover:bg-emerald-700 active:bg-emerald-800;
+  }
+  .btn-secondary {
+    @apply border border-slate-300 bg-white text-slate-800 hover:bg-slate-50 active:bg-slate-100;
+  }
+  .btn-danger {
+    @apply bg-red-600 text-white hover:bg-red-700 active:bg-red-800;
+  }
+  .btn-danger-outline {
+    @apply border border-red-300 bg-white text-red-700 hover:bg-red-50 active:bg-red-100;
+  }
+  .btn-ghost {
+    @apply text-slate-700 hover:bg-slate-200/70 active:bg-slate-200;
+  }
+  .input {
+    @apply min-h-11 w-full rounded-xl border border-slate-300 bg-white px-3 text-base text-slate-900 placeholder:text-slate-400 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 focus:outline-none disabled:bg-slate-100;
+  }
+  .label {
+    @apply mb-1 block text-sm font-semibold text-slate-700;
+  }
+  .card {
+    @apply rounded-2xl border border-slate-200 bg-white shadow-sm;
+  }
+  .th {
+    @apply px-3 py-2 text-left text-xs font-bold tracking-wide text-slate-500 uppercase;
+  }
+  .td {
+    @apply px-3 py-2 align-middle;
+  }
+}
+
+.pixelated {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* ---------- Receipt printing ---------- */
+#print-root {
+  display: none;
+}
+
+@media print {
+  @page {
+    margin: 4mm;
+  }
+  html,
+  body {
+    background: #fff !important;
+    height: auto;
+  }
+  #root {
+    display: none !important;
+  }
+  #print-root {
+    display: block !important;
+  }
+  .receipt {
+    width: 72mm; /* fits 80mm thermal paper; prints as a narrow column on A4/Letter */
+    font-size: 11px;
+    color: #000;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+  }
+}

@@ -1,0 +1,30 @@
+appId: biz.marketingredwagon.demopos
+copyright: Copyright © 2026 Red Wagon
+directories:
+  buildResources: build
+  output: dist
+files:
+  - out/**/*
+  - package.json
+  - '!**/*.map'
+asar: true
+win:
+  target:
+    - target: portable
+      arch: [x64]
+  icon: build/icon.png
+portable:
+  artifactName: DemoPOS-${version}-portable.exe
+mac:
+  target:
+    - target: dmg
+      arch: [universal]
+  icon: build/icon.png
+  category: public.app-category.business
+  # No Apple Developer certificate for a demo build: ad-hoc sign so it runs on Apple Silicon.
+  identity: '-'
+  hardenedRuntime: false
+  gatekeeperAssess: false
+dmg:
+  artifactName: DemoPOS-${version}.dmg
+publish: null
